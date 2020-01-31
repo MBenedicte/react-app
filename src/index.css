@@ -26,6 +26,7 @@ body {
   font-size: 14px;
   border-radius: 10px;
   border: grey 1px solid;
+  margin: 20px;
 }
 button {
   margin: 20px;

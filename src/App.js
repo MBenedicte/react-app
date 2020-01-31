@@ -4,14 +4,24 @@ import './App.css';
 class App extends Component {
   state = {
     arrayList: [],
-    inputValue: ''
+    name: '',
+    id: 0
   };
   add = () => {
-    const newElement = { elementname: this.state.inputValue, size: 12 };
-    return this.setState({ arrayList: [...this.state.arrayList, newElement] });
+    const newElement = { name: this.state.name, size: this.state.id };
+    this.setState({ arrayList: [...this.state.arrayList, newElement] });
   };
-  getInput = event => {
-    this.setState({ inputValue: event.target.value });
+  getInputName = event => {
+    this.setState({ name: event.target.value });
+  };
+  getInputId = event => {
+    this.setState({ id: event.target.value });
+  };
+  remove = elementname => {
+    const newList = [...this.state.arrayList];
+    this.setState({
+      arrayList: newList.filter(item => item.name !== elementname.target.value)
+    });
   };
 
   render() {
@@ -24,24 +34,42 @@ class App extends Component {
             <div>
               <input
                 type='text'
-                placeholder='Enter your element here'
-                onChange={this.getInput}
-                value={this.state.inputValue}
+                placeholder='Enter your element name'
+                onChange={this.getInputName}
+                value={this.state.name}
+              />
+              <input
+                type='text'
+                placeholder='Enter your element id'
+                onChange={this.getInputId}
+                value={this.state.id}
               />
             </div>
             <div>
               <button className='add_btn' onClick={this.add}>
                 Add
               </button>
-              <button className='delete_btn'>Delete</button>
             </div>
           </div>
           <hr></hr>
           <div>
-            <h1>The list</h1>
+            {liftOfElements.length === 0 ? (
+              <p>No list so far</p>
+            ) : (
+              <h1>List of elements</h1>
+            )}
             <div>
               {liftOfElements.map(k => (
-                <div key={k.size}>{k.elementname}</div>
+                <div key={k.size}>
+                  {k.name}
+                  <button
+                    className='delete_btn'
+                    onClick={this.remove}
+                    value={k.name}
+                  >
+                    Delete
+                  </button>
+                </div>
               ))}
             </div>
           </div>
