@@ -17,12 +17,13 @@ class App extends Component {
   getInputId = event => {
     this.setState({ id: event.target.value });
   };
-  remove = elementname => {
+  remove = elementName => {
     const newList = [...this.state.arrayList];
     this.setState({
-      arrayList: newList.filter(item => item.name !== elementname.target.value)
+      arrayList: newList.filter(item => item.name !== elementName.target.value)
     });
   };
+  
 
   render() {
     const liftOfElements = this.state.arrayList;
